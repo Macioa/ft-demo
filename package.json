@@ -5,10 +5,12 @@
   "directories": {},
   "scripts": {
     "pull": "node pull_csv.js",
-    "migrate": "mix migrate_csv",
+    "migrate": "mix ecto.rollback --all && mix ecto.migrate && npm run pull && mix migrate_csv",
+    "migrate_csv": "mix migrate_csv",
     "add_plugins": "asdf plugin-add nodejs && asdf plugin-add erlang && asdf plugin-add elixir",
     "pg": "docker rm -f ft-postgres 2>/dev/null || true && docker build -f postgres.DOCKERFILE -t ft-postgres . && docker run -d --name ft-postgres -p 5432:5432 ft-postgres",
-    "build": "node run pull && node run pg && node run migrate"
+    "install": "node run add_plugins && asdf install && node run pg",
+    "build": "node run migrate"
   },
   "author": "macioa",
   "license": "n/a",

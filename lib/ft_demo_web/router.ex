@@ -7,5 +7,7 @@ defmodule FtDemoWeb.Router do
 
   scope "/api", FtDemoWeb do
     pipe_through :api
+
+    get "/trucks", TruckController, :index
   end
 end

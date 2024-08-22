@@ -2,7 +2,6 @@ defmodule Mix.Tasks.MigrateCsv do
   alias NimbleCSV.RFC4180, as: CSV
   alias FtDemo.Repo
   alias FtDemo.Truck
-  alias Geo.Point
 
   @keys [
     :locationid,

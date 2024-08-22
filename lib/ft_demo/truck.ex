@@ -2,6 +2,14 @@ defmodule FtDemo.Truck do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [
+    :id, :locationid, :applicant, :facilitytype, :cnn, :locationdescription,
+    :address, :blocklot, :block, :lot, :permit, :status, :fooditems, :x, :y,
+    :latitude, :longitude, :schedule, :dayshours, :noisent, :approved,
+    :received, :priorpermit, :expirationdate, :location, :firepreventiondistricts,
+    :policedistricts, :supervisordistricts, :zipcodes, :neighborhoodsold
+  ]}
+
   schema "trucks" do
     field :locationid, :string
     field :applicant, :string
@@ -32,8 +40,6 @@ defmodule FtDemo.Truck do
     field :supervisordistricts, :string
     field :zipcodes, :string
     field :neighborhoodsold, :string
-
-    timestamps()
   end
 
   @doc false

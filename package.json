@@ -1,0 +1,19 @@
+{
+  "name": "ft-demo",
+  "version": "1.0.0",
+  "description": "",
+  "directories": {},
+  "scripts": {
+    "pull": "node pull_csv.js",
+    "migrate": "mix migrate_csv",
+    "add_plugins": "asdf plugin-add nodejs && asdf plugin-add erlang && asdf plugin-add elixir",
+    "pg": "docker rm -f ft-postgres 2>/dev/null || true && docker build -f postgres.DOCKERFILE -t ft-postgres . && docker run -d --name ft-postgres -p 5432:5432 ft-postgres",
+    "build": "node run pull && node run pg && node run migrate"
+  },
+  "author": "macioa",
+  "license": "n/a",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "fs": "^0.0.1-security"
+  }
+}

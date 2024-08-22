@@ -29,6 +29,7 @@ const Overlay = ({ lat, lng, dist, onOverlayChange }) => {
             type="number"
             id="dist"
             value={dist}
+            step="0.003" 
             onChange={(e) => onOverlayChange(lat, lng, e.target.value)}
           />
         </div>

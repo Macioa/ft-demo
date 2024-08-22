@@ -16,6 +16,8 @@
   "license": "n/a",
   "dependencies": {
     "csv-parser": "^3.0.0",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "leaflet": "^1.9.4",
+    "react-leaflet": "^4.2.1"
   }
 }

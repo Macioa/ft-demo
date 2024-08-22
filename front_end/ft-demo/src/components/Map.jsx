@@ -1,47 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup,
   useMapEvents,
 } from "react-leaflet";
-import L from "leaflet";
+import Truck from "./Truck";
 import Overlay from "./Overlay";
+import getTrucks from "../requests/Trucks";
+import { customPinIcon } from "./Icons";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 
-const customIcon = L.icon({
-  iconUrl: require("../pinicon.webp"),
-  iconSize: [38, 38],
-  iconAnchor: [19, 38],
-  popupAnchor: [0, -38],
-  className: 'custom-leaflet-icon'
-});
 
 const Map = () => {
   const [location, setLoc] = useState([37.7749, -122.4194]);
-  const [dist, setDist] = useState(0.001);
+  const [dist, setDist] = useState(0.003);
+  const [trucks, setTrucks] = useState([]);
 
+  useEffect(() => {
+    getTrucks(location[0], location[1], dist).then((data) => setTrucks(data));
+  }, []);
 
   const MapClickHandler = () => {
     useMapEvents({
       click(e) {
-        setLoc([e?.latlng?.lat, e?.latlng?.lng]);
+        const [lat, lng] = [e?.latlng?.lat, e?.latlng?.lng] 
+        setLoc([lat, lng]);
+        getTrucks(lat, lng, dist).then((data) => setTrucks(data))
       },
     });
     return null;
   };
 
-  const onOverlayChange = (lat, lng, new_dist) => {(new_dist== dist ? setLoc([lat, lng]) : setDist(new_dist))};
-  const overLayProps = {lat: location[0], lng: location[1], dist, onOverlayChange}
+  const onOverlayChange = (lat, lng, new_dist) => {
+    new_dist == dist ? setLoc([lat, lng]) : setDist(new_dist);
+    getTrucks(lat, lng, new_dist).then((data) => setTrucks(data))
+  };
+
+  const overLayProps = {
+    lat: location[0],
+    lng: location[1],
+    dist,
+    onOverlayChange,
+  };
 
   return (
     <div className="Mapp">
       <Overlay {...overLayProps} />
       <MapContainer
         center={location}
-        zoom={10}
+        zoom={1000}
         className="map-container"
         style={{ height: "100vh", width: "100vw" }}
       >
@@ -49,10 +58,12 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <Marker position={location} icon={customIcon} className=".custom-leaflet-icon">
-          <Popup>
-            A new marker at {location[0]}, {location[1]}
-          </Popup>
+       {trucks.map((tr, index) => <Truck key={index} {...tr} />)}
+        <Marker
+          position={location}
+          icon={customPinIcon}
+          className=".custom-leaflet-icon"
+        >
         </Marker>
         <MapClickHandler />
       </MapContainer>

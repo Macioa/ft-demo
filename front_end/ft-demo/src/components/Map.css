@@ -1,0 +1,46 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 10px;
+  }
+  
+  .grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .grid-item label {
+    margin-bottom: 5px;
+  }
+  
+  .grid-item input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .map-container {
+    cursor: pointer;
+  }
+
+  .leaflet-marker-pane {
+    background-color: transparent !important;
+    background: transparent !important;
+  }

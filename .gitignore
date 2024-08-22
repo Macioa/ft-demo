@@ -32,3 +32,6 @@ ft_demo-*.tar
 npm-debug.log
 /assets/node_modules/
 
+node_modules/
+
+Mobile_Food_Facility_Permit.csv

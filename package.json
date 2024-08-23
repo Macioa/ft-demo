@@ -9,8 +9,8 @@
     "migrate_csv": "mix migrate_csv",
     "add_plugins": "asdf plugin-add nodejs && asdf plugin-add erlang && asdf plugin-add elixir",
     "pg": "docker rm -f ft-postgres 2>/dev/null || true && docker build -f postgres.DOCKERFILE -t ft-postgres . && docker run -d --name ft-postgres -p 5432:5432 ft-postgres",
-    "install": "node run add_plugins && asdf install && node run pg",
-    "build": "node run migrate"
+    "install": "node run add_plugins && asdf install && mix deps.get && node run pg && cd front_end/ft-demo && npm install && cd ../..",
+    "start": "cd front_end/ft-demo && npm start > client.log 2>&1 && cd ../.. & mix phx.server" 
   },
   "author": "macioa",
   "license": "n/a",

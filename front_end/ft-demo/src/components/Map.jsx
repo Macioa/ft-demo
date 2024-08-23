@@ -15,7 +15,7 @@ import "./Map.css";
 
 const Map = () => {
   const [location, setLoc] = useState([37.7749, -122.4194]);
-  const [dist, setDist] = useState(0.003);
+  const [dist, setDist] = useState(0.0015);
   const [trucks, setTrucks] = useState([]);
 
   useEffect(() => {

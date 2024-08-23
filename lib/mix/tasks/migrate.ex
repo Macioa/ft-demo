@@ -37,7 +37,15 @@ defmodule Mix.Tasks.MigrateCsv do
 
   def run(_args) do
     Mix.Task.run("app.start")
-    {:ok, migrate()}
+    migrate()
+
+    Ecto.Adapters.SQL.query!(Repo, """
+    UPDATE trucks
+    SET geom = ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)
+    WHERE latitude IS NOT NULL AND longitude IS NOT NULL;
+    """)
+
+    {:ok, nil}
   end
 
   def migrate do

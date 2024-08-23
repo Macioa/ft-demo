@@ -27,4 +27,9 @@ Starts the backend with terminal logs.
 
 ## For Convenience
 
-`npm install && npm run migrate && npm start`
+
+```
+git clone https://github.com/Macioa/ft-demo && \
+cd ft-demo && \
+npm install && npm run migrate && npm start
+```

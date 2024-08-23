@@ -7,9 +7,9 @@
     "pull": "node pull_csv.js",
     "migrate": "mix ecto.rollback --all && mix ecto.migrate && npm run pull && mix migrate_csv",
     "migrate_csv": "mix migrate_csv",
-    "add_plugins": "asdf plugin-add nodejs && asdf plugin-add erlang && asdf plugin-add elixir",
+    "add_plugins": "asdf plugin-add nodejs || true && asdf plugin-add erlang || true && asdf plugin-add elixir || true",
     "pg": "docker rm -f ft-postgres 2>/dev/null || true && docker build -f postgres.DOCKERFILE -t ft-postgres . && docker run -d --name ft-postgres -p 5432:5432 ft-postgres",
-    "install": "node run add_plugins && asdf install && mix deps.get && node run pg && cd front_end/ft-demo && npm install && cd ../..",
+    "install": "npm run add_plugins && asdf install && mix deps.get && npm run pg && cd front_end/ft-demo && npm install && cd ../..",
     "start": "cd front_end/ft-demo && npm start > client.log 2>&1 && cd ../.. & mix phx.server" 
   },
   "author": "macioa",
